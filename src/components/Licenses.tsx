@@ -95,12 +95,13 @@ export function Licenses({ state }: { state: State }) {
 
       <style>{`
         @keyframes coin-stack-up {
-          0%, ${(6 * 0.25 / 3.6 * 100).toFixed(1)}% { opacity: 0; transform: translateY(8px) scale(0.8); }
-          ${((6 * 0.25 + 0.3) / 3.6 * 100).toFixed(1)}%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+          0% { opacity: 0; transform: translateY(8px) scale(0.8); }
+          15% { opacity: 1; transform: translateY(0) scale(1); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes coin-stack-down {
           0% { opacity: 1; transform: translateY(0) scale(1); }
-          12% { opacity: 0; transform: translateY(8px) scale(0.8); }
+          15% { opacity: 0; transform: translateY(8px) scale(0.8); }
           100% { opacity: 0; transform: translateY(8px) scale(0.8); }
         }
         @keyframes license-arrow-up {
