@@ -34,24 +34,24 @@ export function Licenses({ state }: { state: State }) {
           </svg>
 
           {/* coin stack */}
-          <div className="relative flex h-14 w-8 flex-col-reverse items-center justify-start">
-            {[0, 1, 2, 3, 4, 5].map((i) => (
+          <div className="relative flex h-14 w-6 flex-col-reverse items-center justify-start">
+            {[0, 1, 2, 3, 4, 5, 6].map((i) => (
               <span
                 key={`${state}-${i}`}
-                className="coin absolute h-3 w-7 rounded-full border"
+                className="coin absolute h-2.5 w-2.5 rounded-full border"
                 style={{
-                  bottom: `${i * 6}px`,
+                  bottom: `${i * 4}px`,
                   borderColor: accent,
                   backgroundColor: "color-mix(in srgb, var(--paper) 70%, transparent)",
                   color: accent,
                   animation: positive
-                    ? `coin-stack-up 3.6s ease-out infinite`
-                    : `coin-stack-down 3.6s ease-out infinite`,
-                  animationDelay: `${i * 0.25}s`,
+                    ? `coin-stack-up 5s ease-out infinite`
+                    : `coin-stack-down 5s ease-out infinite`,
+                  animationDelay: positive ? `${i * 0.3}s` : `${(6 - i) * 0.3}s`,
                   opacity: 0,
                 }}
               >
-                <span className="absolute inset-0 flex items-center justify-center text-[6px] font-semibold">
+                <span className="absolute inset-0 flex items-center justify-center text-[5px] font-semibold">
                   $
                 </span>
               </span>
@@ -95,14 +95,16 @@ export function Licenses({ state }: { state: State }) {
 
       <style>{`
         @keyframes coin-stack-up {
-          0% { opacity: 0; transform: translateY(8px) scale(0.8); }
-          15% { opacity: 1; transform: translateY(0) scale(1); }
-          100% { opacity: 1; transform: translateY(0) scale(1); }
+          0%, 12% { opacity: 0; transform: translateY(10px) scale(0.8); }
+          25% { opacity: 1; transform: translateY(0) scale(1); }
+          82% { opacity: 1; transform: translateY(0) scale(1); }
+          94%, 100% { opacity: 0; transform: translateY(10px) scale(0.8); }
         }
         @keyframes coin-stack-down {
-          0% { opacity: 1; transform: translateY(0) scale(1); }
-          15% { opacity: 0; transform: translateY(8px) scale(0.8); }
-          100% { opacity: 0; transform: translateY(8px) scale(0.8); }
+          0%, 8% { opacity: 1; transform: translateY(0) scale(1); }
+          20% { opacity: 0; transform: translateY(10px) scale(0.8); }
+          88% { opacity: 0; transform: translateY(10px) scale(0.8); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes license-arrow-up {
           0%, 100% { transform: translateY(0); opacity: 0.5; }
