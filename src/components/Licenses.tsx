@@ -14,48 +14,55 @@ export function Licenses({ state }: { state: State }) {
       </span>
 
       <div className="relative mt-4 flex h-28 flex-col items-center justify-center">
-        {/* price tag */}
-        <div
-          key={state}
-          className="relative flex items-center justify-center"
-          style={{
-            color: accent,
-            animation: positive
-              ? "license-grow 2.6s ease-in-out infinite"
-              : "license-shrink 2.6s ease-in-out infinite",
-          }}
-        >
+        {/* paper license + coin stack row */}
+        <div className="relative flex h-16 items-end justify-center gap-2">
+          {/* paper license */}
           <svg
-            viewBox="0 0 48 48"
-            className="h-10 w-10"
+            viewBox="0 0 40 48"
+            className="h-10 w-8"
             fill="none"
-            stroke="currentColor"
+            stroke={accent}
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path d="M20 6 L38 24 L24 38 L6 20 L6 6 L20 6 Z" />
-            <circle cx="13" cy="13" r="2.5" fill="currentColor" stroke="none" />
+            <rect x="6" y="4" width="28" height="40" rx="2" />
+            <path d="M12 14 L28 14" />
+            <path d="M12 22 L28 22" />
+            <path d="M12 30 L22 30" />
+            <circle cx="28" cy="34" r="3" fill="currentColor" stroke="none" opacity={0.25} />
           </svg>
 
-          {/* ticking number */}
-          <span
-            className="absolute -right-2 -top-1 text-[10px] font-semibold"
-            style={{
-              color: accent,
-              animation: positive
-                ? "license-tick-up 2.6s ease-out infinite"
-                : "license-tick-down 2.6s ease-out infinite",
-            }}
-          >
-            {positive ? "+1" : "-1"}
-          </span>
+          {/* coin stack */}
+          <div className="relative flex h-14 w-8 flex-col-reverse items-center justify-start">
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <span
+                key={`${state}-${i}`}
+                className="coin absolute h-3 w-7 rounded-full border"
+                style={{
+                  bottom: `${i * 6}px`,
+                  borderColor: accent,
+                  backgroundColor: "color-mix(in srgb, var(--paper) 70%, transparent)",
+                  color: accent,
+                  animation: positive
+                    ? `coin-stack-up 3.6s ease-out infinite`
+                    : `coin-stack-down 3.6s ease-out infinite`,
+                  animationDelay: `${i * 0.25}s`,
+                  opacity: 0,
+                }}
+              >
+                <span className="absolute inset-0 flex items-center justify-center text-[6px] font-semibold">
+                  $
+                </span>
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* rising / falling bar + arrow */}
-        <div className="relative mt-2 h-10 w-16">
+        {/* up / down arrow */}
+        <div className="relative mt-1 h-6 w-10">
           <svg
-            viewBox="0 0 64 40"
+            viewBox="0 0 40 24"
             className="h-full w-full"
             fill="none"
             stroke={accent}
@@ -66,30 +73,20 @@ export function Licenses({ state }: { state: State }) {
             {positive ? (
               <>
                 <path
-                  d="M8 32 L24 24 L40 28 L56 8"
-                  opacity={0.55}
-                  style={{ animation: "license-draw 2.6s ease-in-out infinite" }}
-                  strokeDasharray="80"
-                  strokeDashoffset="80"
+                  d="M4 20 L20 8 L36 20"
+                  opacity={0.7}
+                  style={{ animation: "license-arrow-up 2.4s ease-in-out infinite" }}
                 />
-                <path
-                  d="M48 8 L56 8 L56 16"
-                  style={{ animation: "license-arrow 2.6s ease-in-out infinite" }}
-                />
+                <path d="M20 4 L20 14" style={{ animation: "license-arrow-up 2.4s ease-in-out infinite" }} />
               </>
             ) : (
               <>
                 <path
-                  d="M8 8 L24 16 L40 12 L56 32"
-                  opacity={0.55}
-                  style={{ animation: "license-draw 2.6s ease-in-out infinite" }}
-                  strokeDasharray="80"
-                  strokeDashoffset="80"
+                  d="M4 4 L20 16 L36 4"
+                  opacity={0.7}
+                  style={{ animation: "license-arrow-down 2.4s ease-in-out infinite" }}
                 />
-                <path
-                  d="M48 32 L56 32 L56 24"
-                  style={{ animation: "license-arrow 2.6s ease-in-out infinite" }}
-                />
+                <path d="M20 20 L20 10" style={{ animation: "license-arrow-down 2.4s ease-in-out infinite" }} />
               </>
             )}
           </svg>
@@ -97,38 +94,27 @@ export function Licenses({ state }: { state: State }) {
       </div>
 
       <style>{`
-        @keyframes license-grow {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.15); }
+        @keyframes coin-stack-up {
+          0% { opacity: 0; transform: translateY(8px) scale(0.8); }
+          15% { opacity: 1; transform: translateY(0) scale(1); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-        @keyframes license-shrink {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(0.85); }
+        @keyframes coin-stack-down {
+          0% { opacity: 1; transform: translateY(0) scale(1); }
+          15% { opacity: 0; transform: translateY(8px) scale(0.8); }
+          100% { opacity: 0; transform: translateY(8px) scale(0.8); }
         }
-        @keyframes license-tick-up {
-          0% { opacity: 0; transform: translateY(6px); }
-          25% { opacity: 1; transform: translateY(0); }
-          70% { opacity: 1; transform: translateY(-10px); }
-          100% { opacity: 0; transform: translateY(-14px); }
+        @keyframes license-arrow-up {
+          0%, 100% { transform: translateY(0); opacity: 0.5; }
+          50% { transform: translateY(-3px); opacity: 1; }
         }
-        @keyframes license-tick-down {
-          0% { opacity: 0; transform: translateY(-6px); }
-          25% { opacity: 1; transform: translateY(0); }
-          70% { opacity: 1; transform: translateY(10px); }
-          100% { opacity: 0; transform: translateY(14px); }
-        }
-        @keyframes license-draw {
-          0% { stroke-dashoffset: 80; opacity: 0; }
-          15% { opacity: 0.55; }
-          70% { stroke-dashoffset: 0; opacity: 0.55; }
-          100% { stroke-dashoffset: 0; opacity: 0; }
-        }
-        @keyframes license-arrow {
-          0%, 100% { opacity: 0.3; transform: translateY(0); }
-          50% { opacity: 1; transform: translateY(${positive ? "-2px" : "2px"}); }
+        @keyframes license-arrow-down {
+          0%, 100% { transform: translateY(0); opacity: 0.5; }
+          50% { transform: translateY(3px); opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           .licenses * { animation: none !important; }
+          .licenses .coin { opacity: 1 !important; }
         }
       `}</style>
     </div>
