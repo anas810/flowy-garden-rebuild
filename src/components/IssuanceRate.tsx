@@ -6,14 +6,14 @@ export function IssuanceRate({ state }: { state: State }) {
 
   return (
     <div
-      className="issuance-rate pointer-events-none absolute left-6 top-[32%] w-36 sm:left-16 sm:w-44"
+      className="issuance-rate pointer-events-none absolute left-6 top-[24%] w-36 sm:left-16 sm:w-44"
       aria-hidden="true"
     >
-      <span className="label text-[10px] text-muted-foreground">
+      <span className="label block text-center text-[10px] text-muted-foreground">
         Issuance rate
       </span>
 
-      <div className="relative mt-4 h-28">
+      <div className="relative mt-6 h-28">
         {/* sparkline behind the token */}
         <svg
           viewBox="0 0 120 70"
