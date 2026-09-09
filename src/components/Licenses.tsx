@@ -66,7 +66,7 @@ export function Licenses({ state }: { state: State }) {
           </svg>
         </div>
 
-        {/* up / down arrow */}
+        {/* up / down sparkline */}
         <div className="relative mt-2 h-6 w-10">
           <svg
             viewBox="0 0 40 24"
@@ -78,23 +78,21 @@ export function Licenses({ state }: { state: State }) {
             strokeLinejoin="round"
           >
             {positive ? (
-              <>
-                <path
-                  d="M4 20 L20 8 L36 20"
-                  opacity={0.7}
-                  style={{ animation: "license-arrow-up 2.4s ease-in-out infinite" }}
-                />
-                <path d="M20 4 L20 14" style={{ animation: "license-arrow-up 2.4s ease-in-out infinite" }} />
-              </>
+              <path
+                d="M4 18 L12 16 L20 10 L28 8 L36 4"
+                strokeDasharray="60"
+                strokeDashoffset="60"
+                opacity={0.8}
+                style={{ animation: "license-sparkline-up 2.4s ease-out infinite" }}
+              />
             ) : (
-              <>
-                <path
-                  d="M4 4 L20 16 L36 4"
-                  opacity={0.7}
-                  style={{ animation: "license-arrow-down 2.4s ease-in-out infinite" }}
-                />
-                <path d="M20 20 L20 10" style={{ animation: "license-arrow-down 2.4s ease-in-out infinite" }} />
-              </>
+              <path
+                d="M4 6 L12 8 L20 14 L28 16 L36 20"
+                strokeDasharray="60"
+                strokeDashoffset="60"
+                opacity={0.8}
+                style={{ animation: "license-sparkline-down 2.4s ease-out infinite" }}
+              />
             )}
           </svg>
         </div>
